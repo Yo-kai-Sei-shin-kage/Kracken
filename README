@@ -1,2 +1,25 @@
 # Kracken
-Linear hash brute forcing tool written in bash.
+A hash cracker that accepts sha1, sha256, sha384, sha512, and md5 hashes.
+
+Hash cracking tool written in bash.
+
+# Installation
+
+cd to directory of your choice.
+git clone https://github.com/Yokai-Seishinkage/Kracken.git
+cd kracken
+chmod +x kracken
+cp kracken /usr/bin/kracken
+
+# Dependencies
+
+coreutils
+bash version 4.3.42 or higher
+
+# Usage
+
+Enter "kracken" in terminal after placing the kracken executable into /usr/bin.
+Enter the hash you wish to crack.
+(i.e. MD5 Hash for the word "password" would be: 5f4dcc3b5aa765d61d8327deb882cf99)
+Then follow the directions as you are prompted.
+This tool does not, yet, accept salted hashes. Probably never will.
