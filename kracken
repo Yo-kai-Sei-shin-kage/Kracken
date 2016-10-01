@@ -1,0 +1,115 @@
+#!/bin/bash
+
+###################################
+## krack-H by Yokai Seishinkage. ##
+###################################
+
+main() {
+clear
+
+sub_main() {
+clear
+
+echo -e "
+What kind of hash would you like to crack?
+~~~~~~~~~~~~~~~~~~~~~~~~#
+1.) md5                 |
+2.) sha1                |
+3.) sha256              |
+4.) sha384              |
+5.) sha512              |
+6.) Quit                |
+~~~~~~~~~~~~~~~~~~~~~~~~#
+\n"
+read -p "Selection: " CHOICE
+clear
+
+
+if [ "$CHOICE" == "1" ]; then
+   ALGO="md5sum"
+
+      elif [ "$CHOICE" == "2" ]; then
+         ALGO="sha1sum"
+
+         elif [ "$CHOICE" == "3" ]; then
+            ALGO="sha256sum"
+
+            elif [ "$CHOICE" == "4" ]; then
+               ALGO="sha384sum"
+
+               elif [ "$CHOICE" == "5" ]; then
+                  ALGO="sha512sum"
+
+                  elif [ "$CHOICE" == "6" ]; then
+                     clear
+                     exit 0
+
+                      else
+                         clear
+                         echo -e "\x1b[31m Incorrect entry!\x1b[0m"
+                         sleep 3
+                         clear
+                         main
+fi
+
+
+echo -e " Enter the hash to crack.\n"
+read -p "Hash: " MD5
+echo -e " Enter the wordlist to use.\n"
+read -p "Wordlist: " LIST
+
+clear
+COUNT="$(wc -l $LIST)"
+    echo -e " $COUNT max line count.\n"
+
+
+range() {
+
+    echo -e " Enter the starting line number to use.\n"
+    read -p "Start: " NUM1
+    echo -e " Enter the ending line number to use.\n"
+    read -p "End: " NUM2
+
+	if [ "$NUM1" -gt "$NUM2" ]; then
+
+	   clear
+	   echo -e " Starting number must be lower than ending number!\n"
+	   read -p "Press <enter> to continue"
+	   clear
+           range
+
+	fi
+}
+
+range
+
+for i in $(seq $NUM1 $NUM2)
+do
+  GEN1="$(head -n $i $LIST | tail -n 1)"
+  GEN2="$(printf $GEN1 | $ALGO | tr -d ' -')"
+    clear
+    echo " Input  Hash is: $MD5"
+    echo " Output hash is: $GEN2"
+    echo -e "\n Passkey: $GEN1\n"
+    echo -e " Wordlist line number: $i\n"
+
+	if [ "$GEN2" == "$MD5" ]
+	then
+	echo " Password found: $GEN1"
+	exit 0
+	fi
+done
+}
+
+sub_main
+
+echo -e "\n Passkey not found. \n"
+        read -p "Press <enter> to continue"
+        clear
+        exit 0
+}
+
+while true
+do
+main
+done
