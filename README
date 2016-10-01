@@ -1,5 +1,5 @@
 # Kracken
-A hash cracker that accepts sha1, sha256, sha384, sha512, and md5 hashes.
+A linear bruteforce hash cracker that accepts sha1, sha256, sha384, sha512, and md5 hashes.
 
 Hash cracking tool written in bash.
 
